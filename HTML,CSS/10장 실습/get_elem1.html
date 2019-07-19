@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script>
+        function process() {
+            var obj = document.myform.text1;
+            alert(obj.value);
+        }
+    </script>
+</head>
+
+<body>
+    <form name="myform">
+        <input type="text" id="target" name="text1">
+        <input type="button" onclick="process()" value="클릭">
+
+    </form>
+</body></html>

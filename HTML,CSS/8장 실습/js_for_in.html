@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var mycar = {
+            make: "BMW",
+            model: "X5",
+            year: "2013"
+        };
+        var txt = "";
+
+        for (var x in mycar) {
+            txt += mycar[x] + " ";
+        }
+        document.write(txt);
+    </script>
+</body></html>

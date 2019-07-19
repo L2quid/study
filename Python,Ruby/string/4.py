@@ -1,0 +1,5 @@
+print("JuOll's \"tutorial\"")
+print("\\")
+print("hello\nworld")
+print('hello\nworld')
+print("\a")
