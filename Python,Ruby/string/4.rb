@@ -1,5 +1,0 @@
-puts("JuOll's \"tutorial\"")
-puts("\\")
-puts("hello \nworld")
-puts('hello \nworld')
-puts("\a")

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var champ = [
+            "가렌",
+            "유미",
+            "모데",
+            "카사딘",
+            "베인",
+            "신지드",
+            "애니",
+            "리산",
+            "케일",
+            "리신"
+        ]
+
+        function rand() {
+            var c = [champ[Math.floor(Math.random() * 10)], champ[Math.floor(Math.random() * 10)], champ[Math.floor(Math.random() * 10)], champ[Math.floor(Math.random() * 10)], champ[Math.floor(Math.random() * 10)]]
+            document.getElementById("as").innerHTML = c
+        }
+    </script>
+    <input type="button" onclick="rand()" value="선택">
+    <div id="as"></div>
+</body>
+</html>
