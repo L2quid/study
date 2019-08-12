@@ -3,18 +3,18 @@ from bs4 import BeautifulSoup
 import urllib.request
 import datetime
 import os
-url = 'https://news.naver.com/main/ranking/popularDay.nhn?rankingType=popular_day&sectionId=105&date=20190808'
+date= datetime.datetime.today().strftime('%Y%m%d')
+url = 'https://news.naver.com/main/ranking/popularDay.nhn?rankingType=popular_day&sectionId=105&date='+date
 with urllib.request.urlopen(url) as fs :
     soup = BeautifulSoup(fs.read().decode(fs.headers.get_content_charset()), 'html.parser')
     items = soup.find_all('div', {'class' : 'ranking_headline'})
     links=soup.find_all('a',{'class':'nclicks(rnk.sci)'})
-local = datetime.datetime.now()
-date= str(local.year)+'_'+str(local.month)+'_'+str(local.day)
 desktopPath = os.path.expanduser('~')
 filePath = desktopPath + '\desktop\뉴스'
 wb = Workbook()
 ws = wb.active
 ws.column_dimensions['B'].width = 60
+ws.column_dimensions['C'].width = 12
 for i in range (30):
     ws.cell(row=i+1,column=1).value=str(i+1)+'위'
     ws.cell(row=i+1,column=2).value=items[i].get_text(strip = True)
