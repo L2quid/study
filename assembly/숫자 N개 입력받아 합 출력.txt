@@ -1,0 +1,47 @@
+TITLE Top-Down Approach
+
+INCLUDE Irvine32.inc
+
+.data
+intArray DWORD 3 DUP(?)
+str1 BYTE "정수를 입력하세요 :", 0
+str2 BYTE "정수의 합은 :",0
+.code
+main PROC
+call input
+mov edx,offset str2
+mov ecx, lengthof str2
+call writestring
+call sum
+call crlf
+exit
+main ENDP
+
+input PROC
+mov ecx,lengthof intarray
+mov esi,OFFSET intarray
+	L1:
+	push ecx
+	mov edx,offset str1
+	mov ecx, lengthof str1
+	call writestring
+	pop ecx
+	call readdec
+	mov [esi],eax
+	add esi,TYPE DWORD
+	loop L1
+ret
+input ENDP
+
+sum PROC
+mov esi,OFFSET intarray
+mov eax,0
+mov ecx,lengthof intarray
+	L2:
+	add eax,[esi]
+	add esi,TYPE DWORD
+	Loop L2
+call writedec
+ret
+sum ENDP
+END main

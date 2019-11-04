@@ -1,0 +1,26 @@
+TITLE Add and Subtract           (AddSub.asm)
+
+; This program adds and subtracts 32-bit integers.
+
+INCLUDE Irvine32.inc
+.data
+val1 DWORD 10h,20h,30h
+
+.code
+main PROC
+	mov ax,6
+	mov ecx,4
+L1:
+	inc ax
+	loop L1
+	call dumpRegs
+	mov ecx,10
+X2:
+	inc ax
+	loop X2
+	call dumpRegs
+
+	exit
+
+main ENDP
+END main

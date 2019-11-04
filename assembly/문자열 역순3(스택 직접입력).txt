@@ -1,0 +1,32 @@
+TITLE Program Template          (printStrings.asm)
+
+; This program reverses a string from input
+
+INCLUDE Irvine32.inc
+
+.data
+buffer BYTE 80 DUP(0)
+lengthDW DWORD ?
+
+.code
+main PROC
+	mov edx, offset buffer
+	mov ecx, sizeof buffer
+	call readstring
+	mov lengthDW,eax
+	mov ecx,lengthDW
+	mov esi,0
+		L1 :movzx eax,buffer[esi]
+		inc esi
+		push eax
+		loop L1
+	mov ecx,lengthDW
+		L2:pop eax
+		call writechar
+		loop L2
+	call crlf
+exit
+main ENDP
+END main
+
+

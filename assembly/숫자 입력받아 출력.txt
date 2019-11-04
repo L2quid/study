@@ -1,0 +1,52 @@
+TITLE Top-Down Approach
+
+INCLUDE Irvine32.inc
+
+.data
+N = 3
+intArray DWORD N DUP(?)
+str1 BYTE "정수를 N개 입력하세요", 0
+
+.code
+main PROC
+ mov ecx, LENGTHOF intArray
+ mov esi, OFFSET intArray
+ call PromptForIntegers  ; sub-task (1) - Input Integers
+ 
+ mov ecx, LENGTHOF intArray
+ mov esi, OFFSET intArray
+ call ArraySum    ; sub-task (2) - calculate sum of the array
+ 
+ call writeInt    ; sub-task (3) - display the result
+ call Crlf
+ exit
+main ENDP
+
+PromptForIntegers PROC
+ push ecx     ; display string begin
+ mov edx, OFFSET str1 
+ mov ecx, SIZEOF str1
+ call WriteString
+ call Crlf
+ pop ecx      ; display string end
+
+L2: call ReadInt
+ mov [esi], eax    ; copy eax (read value) to the intArray
+ add esi,TYPE DWORD   ; point to next integer
+ loop L2      ; repeat for array size
+ ret
+PromptForIntegers ENDP
+
+
+ArraySum PROC
+; Receives: ESI points to an array of doublewords,
+; ECX = number of array elements.
+; Returns: EAX = sum
+;-----------------------------------------------------
+ mov eax,0   ; set the sum to zero
+L1: add eax,[esi]  ; add each integer to sum
+ add esi,TYPE DWORD ; point to next integer
+ loop L1    ; repeat for array size
+ ret
+ArraySum ENDP
+END main

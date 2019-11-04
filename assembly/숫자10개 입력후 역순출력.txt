@@ -1,0 +1,27 @@
+TITLE Program Template          (RevStr.asm)
+
+; This program reverses a string.
+
+INCLUDE Irvine32.inc
+.data
+inputSize = 10
+
+.code
+main PROC
+mov ecx,inputsize
+
+input: call readint
+push eax
+loop input
+
+mov ecx,inputSize
+
+L2:pop eax; get character
+call writedec
+mov eax, ' '
+call writechar
+Loop L2
+call crlf
+exit
+main ENDP
+END main

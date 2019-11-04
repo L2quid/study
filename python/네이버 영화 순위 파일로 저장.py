@@ -11,7 +11,7 @@ with urllib.request.urlopen(url) as fs :
 local = datetime.datetime.now()
 date= str(local.year)+'_'+str(local.month)+'_'+str(local.day)
 desktopPath = os.path.expanduser('~')
-filePath = desktopPath + '\desktop\네이버 영화순위\영화순위'+str(date)+'.txt'
+filePath = desktopPath + '\desktop\영화순위'+str(date)+'.txt'
 with open( filePath, 'w+') as file:
     for i in range(20) :
         file.write(str(i + 1) + '위\t ' + items[i].get_text(strip = True)+'\n')
