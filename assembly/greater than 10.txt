@@ -1,0 +1,42 @@
+TITLE Program Template (26.asm)
+
+; This program implements 26 page
+INCLUDE Irvine32.inc
+
+.data
+intArray DWORD 10 dup(?)
+str1 BYTE "None of the numbers is greater than 10 ", 0
+str2 BYTE "번째", 0
+count dword 1
+
+.code
+main PROC
+mov ebx,0
+mov ecx,10
+L1 :
+call readint 
+mov intarray[ebx],eax
+add ebx,4
+loop L1
+mov ecx,10
+mov ebx,0
+L2:
+cmp intarray[ebx],10
+jg L3
+inc count
+add ebx,4
+loop L2
+mov edx,OFFSET str1
+call Writestring
+exit
+L3:
+mov eax,count
+call writeint
+mov edx,offset str2
+call writestring
+call Crlf
+exit
+
+
+main ENDP
+END main

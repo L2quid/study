@@ -7,6 +7,6 @@ with urllib.request.urlopen(url) as fs :
     soup = BeautifulSoup(fs.read().decode(fs.headers.get_content_charset()), 'html.parser')
     items = soup.find_all('strong', {'class' : 'title'})
 
-for i in range(7) :
+for i in range(10) :
     print(str(i + 1) + '위\t: ' + items[i].get_text(strip = True))
 input()
