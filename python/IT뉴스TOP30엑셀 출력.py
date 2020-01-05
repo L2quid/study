@@ -10,7 +10,7 @@ with urllib.request.urlopen(url) as fs :
     items = soup.find_all('div', {'class' : 'ranking_headline'})
     links=soup.find_all('a',{'class':'nclicks(rnk.sci)'})
 desktopPath = os.path.expanduser('~')
-filePath = desktopPath + '\desktop\뉴스'
+filePath = desktopPath + '\뉴스'
 wb = Workbook()
 ws = wb.active
 ws.column_dimensions['B'].width = 60
