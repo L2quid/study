@@ -1,0 +1,15 @@
+TITLE $,ListSize
+; This program adds and subtracts 32-bit unsigned
+; integers and stores the sum in a variable.
+INCLUDE Irvine32.inc
+.data
+list DWORD 1,2,3,4
+ListSize = ($ - list)
+
+.code
+main PROC
+	mov ebx,listsize
+	call DumpRegs	; display the registers
+	exit
+main ENDP
+END main

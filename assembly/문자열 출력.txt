@@ -1,0 +1,40 @@
+TITLE Program Template          (printStrings.asm)
+
+; This program reverses a string from input
+
+INCLUDE Irvine32.inc
+
+.data
+dVar DWORD 3
+buffer BYTE 80 DUP(0)
+lengthDW DWORD ?
+
+.code
+main PROC
+
+mov ecx, dVar
+L1:
+push ecx; ecx 값 저장 (ReadString)
+mov edx, OFFSET buffer; 문자열 입력 저장 위치
+mov ecx, SIZEOF buffer; 문자열 입력의 최대 크기
+call ReadString; 문자열 입력 받음
+mov lengthDW, eax
+pop ecx; ecx값 복구 (ReadString)
+
+mov esi, 0
+push ecx; ecx 값 저장 (L2)
+mov ecx, lengthDW
+L2:
+mov al, buffer[esi]
+call WriteChar
+inc esi
+Loop L2
+pop ecx; ecx 값 복구 (L2)
+call Crlf
+Loop L1
+
+exit
+main ENDP
+END main
+
+

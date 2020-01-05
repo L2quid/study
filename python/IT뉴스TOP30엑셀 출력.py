@@ -1,3 +1,4 @@
+
 from openpyxl import Workbook
 from bs4 import BeautifulSoup
 import urllib.request
@@ -20,4 +21,4 @@ for i in range (30):
     ws.cell(row=i+1,column=2).value=items[i].get_text(strip = True)
     ws.cell(row=i+1,column=3).value=str('링크로 이동')
     ws.cell(row=i+1,column=3).hyperlink=str('https://news.naver.com')+links[2*i].attrs['href']
-wb.save(filePath+"\IT30_"+date+".xlsx")
+wb.save(filePath+date+".xlsx")
