@@ -1,8 +1,7 @@
-console.log('hello');
-console.log("%d",12);
-
-var person ={
-    name:'이재웅',
-    age:24
+var person = {
+  name: 'Bob',
+  age: 32,
+  gender: 'male',
+  interests: ['music', 'skiing']
 };
 console.log('%s',person.name);
