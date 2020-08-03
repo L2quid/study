@@ -9,6 +9,7 @@ var app = http.createServer(function(request,response){
     var title = queryData.id;
  
     if(pathname === '/'){
+        var title = `welcome`;
         var description = `Hello Node`;
         var template = `
         <!doctype html>
