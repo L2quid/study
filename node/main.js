@@ -9,7 +9,7 @@ var app = http.createServer(function(request,response){
     var title = queryData.id;
  
     if(pathname === '/'){
-      fs.readFile(`data/${queryData.id}`, 'utf8', function(err, description){
+        var description = `Hello Node`;
         var template = `
         <!doctype html>
         <html>
@@ -31,10 +31,23 @@ var app = http.createServer(function(request,response){
         `;
         response.writeHead(200);
         response.end(template);
-      });
     } else {
+        var template = `
+        <!doctype html>
+        <html>
+        <head>
+          <title>404 NOT FOUND</title>
+          <meta charset="utf-8">
+        </head>
+        <body>
+         <h1>
+        404 NOT FOUND
+        </h1>
+        </body>
+        </html>
+        `;
       response.writeHead(404);
-      response.end('Not found');
+       response.end(template);
     }
  
  
