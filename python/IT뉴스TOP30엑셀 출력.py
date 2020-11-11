@@ -1,4 +1,3 @@
-
 from openpyxl import Workbook
 from bs4 import BeautifulSoup
 import urllib.request

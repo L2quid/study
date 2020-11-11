@@ -12,7 +12,7 @@ with urllib.request.urlopen(url) as fs :
 local = datetime.datetime.now()
 date= str(local.year)+'_'+str(local.month)+'_'+str(local.day)
 desktopPath = os.path.expanduser('~')
-filePath = desktopPath + '\desktop'+str(date)+'.txt'
+filePath = desktopPath + '\desktop/'+str(date)+'.txt'
 with open( filePath, 'w+',encoding='utf-8') as file:
     for i in range(20) :
         file.write(str(i + 1) + '위\t ' + items[i+1].get_text(strip = True)+'-'+name[i+1].get_text(strip = True)+'\t'+price[i+1].get_text(strip = True)+'\n')
