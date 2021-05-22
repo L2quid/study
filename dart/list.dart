@@ -8,4 +8,11 @@ void main(){
   a.remove('1');
   print(a);
   print(a.reversed);
+  print(a.first);
+  print(a.last);
+  print(a.last.first);
+  print(a.isEmpty);
+  a.forEach((element) {
+    print('el : $element');
+  });
 }

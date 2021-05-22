@@ -11,4 +11,13 @@ void main(){
   print(dict);
   print(dict.keys.toList());
   print(dict.values.toList());
+  dict.putIfAbsent(3, () => 3);
+  print(dict);
+
+  dict.update(4, (prev){
+    return 4;
+  }, ifAbsent: (){
+    return 5;
+  });
+  print(dict);
 }
