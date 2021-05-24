@@ -1,5 +1,8 @@
+
 void main(List<String> args) {
-  Test a = new Test('이름1', '그룹1', 1);
+  Test a = new Test('이름1', '그룹1', 1)
+    ..sayName()
+    ..id=3;
   Test b = new Test.init({
     'name': '이름2',
     'group': '그룹2',
@@ -13,18 +16,20 @@ void main(List<String> args) {
   print(a.id);
 }
 
+
 class Test {
   final name;
   final group;
   int _id;
 
-  Test(
-    String a,
-    String b,
-    dynamic c,
-  )   : this.name = a,
-        this.group = b,
-        this._id = c;
+  Test(this.name,this.group,this._id);
+  // Test(
+  //   String a,
+  //   String b,
+  //   dynamic c,
+  // )   : this.name = a,
+  //       this.group = b,
+  //       this._id = c;
 
   Test.init(
     Map values,
