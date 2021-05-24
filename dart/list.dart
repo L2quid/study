@@ -15,4 +15,6 @@ void main(){
   a.forEach((element) {
     print('el : $element');
   });
+  List b=[...a, 1,2];
+  print(b);
 }
