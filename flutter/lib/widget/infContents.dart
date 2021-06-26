@@ -8,19 +8,22 @@ class InfContents extends StatefulWidget {
 }
 
 class Picture {
-  String id;
-  String author;
+  int id;
+  String name;
+  int age;
 
-  Picture(this.id, this.author);
+  Picture(this.id, this.name, this.age);
 
   Picture.formMap(Map<String, dynamic> map)
       : id = map['id'],
-        author = map['author'];
+        name = map['name'],
+        age=map['age'];
 }
 
 class _InfContentsState extends State<InfContents> {
   List _data = [];
   int page = 1;
+  // ignore: non_constant_identifier_names
   ScrollController _Scroll = ScrollController();
 
   @override
@@ -40,19 +43,18 @@ class _InfContentsState extends State<InfContents> {
   }
 
   Future _fetchData() async {
-    int limit = 20;
+    int limit = 10;
     await http
-        .get(Uri.parse("https://picsum.photos/v2/list?page=$page&limit=$limit"))
+        .get(Uri.parse("http://18.216.47.35:3000/?page=$page&limit=$limit"))
         .then((res) {
       if (res.statusCode == 200) {
         String jsonString = res.body;
         List pic = jsonDecode(jsonString);
         for (int i = 0; i < pic.length; i++) {
           var pics = pic[i];
-          Picture PictureToAdd = Picture(pics["id"], pics["author"]);
-
+          Picture pictureToAdd = Picture(pics["id"], pics["name"], pics["age"]);
           setState(() {
-            _data.add(PictureToAdd);
+            _data.add(pictureToAdd);
           });
         }
         setState(() {
@@ -72,9 +74,9 @@ class _InfContentsState extends State<InfContents> {
       ),
       body: ListView.builder(
           controller: _Scroll,
-          itemCount: _data.length+1,
+          itemCount: _data.length + 1,
           itemBuilder: (context, index) {
-            if (index==_data.length){
+            if (index == _data.length) {
               return Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Center(child: CircularProgressIndicator()),
@@ -84,8 +86,9 @@ class _InfContentsState extends State<InfContents> {
             return Container(
               child: Column(
                 children: [
-                  Text(pic.id),
-                  Text(pic.author),
+                  Text("id : "+ pic.id.toString()),
+                  Text(pic.name),
+                  Text("age : "+pic.age.toString()),
                   Divider(),
                 ],
               ),

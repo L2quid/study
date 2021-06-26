@@ -77,6 +77,7 @@ class _CarouselImageState extends State<CarouselImage> {
                 ),
                 Container(
                   padding: EdgeInsets.only(right: 10),
+                  // ignore: deprecated_member_use
                   child: FlatButton(
                     color: Colors.white,
                     onPressed: () {},
