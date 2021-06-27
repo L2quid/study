@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sample_test/screen/SendForm.dart';
 import 'package:sample_test/screen/home_screen.dart';
 import 'package:sample_test/screen/infinity_scroll.dart';
 import 'package:sample_test/widget/bottom_bar.dart';
@@ -32,7 +33,7 @@ class _MyAppState extends State<MyApp> {
             children: [
               HomeScreen(),
               InfinityScroll(),
-              Container(),
+              SendForm(),
               Container(),
               Container(),
             ],
