@@ -68,12 +68,15 @@ class _InfContentsState extends State<InfContents> {
   }
 
   Future deleteId(inputValues) {
-    var body = json.encode(inputValues);
-    print(body);
-    return http.post(
-        Uri.parse("https://webhook.site/1a22a668-a2b2-4fe9-beeb-c2ed77bd64f6"),
+    var body = json.encode({"id":inputValues});
+    http.post(
+        Uri.parse("https://webhook.site/f31b331d-6f4a-4491-8897-976831f00575"),
         headers: {"Content-Type": "application/json"},
-        body: {"id": body});
+        body: body);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => InfContents()),
+    );
   }
 
   @override
