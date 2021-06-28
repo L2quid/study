@@ -17,12 +17,13 @@ class Picture {
   Picture.formMap(Map<String, dynamic> map)
       : id = map['id'],
         name = map['name'],
-        age=map['age'];
+        age = map['age'];
 }
 
 class _InfContentsState extends State<InfContents> {
   List _data = [];
   int page = 1;
+
   // ignore: non_constant_identifier_names
   ScrollController _Scroll = ScrollController();
 
@@ -66,6 +67,15 @@ class _InfContentsState extends State<InfContents> {
     });
   }
 
+  Future deleteId(inputValues) {
+    var body = json.encode(inputValues);
+    print(body);
+    return http.post(
+        Uri.parse("https://webhook.site/1a22a668-a2b2-4fe9-beeb-c2ed77bd64f6"),
+        headers: {"Content-Type": "application/json"},
+        body: {"id": body});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,15 +94,27 @@ class _InfContentsState extends State<InfContents> {
             }
             Picture pic = _data[index];
             return Container(
-              child: Column(
-                children: [
-                  Text("id : "+ pic.id.toString()),
-                  Text(pic.name),
-                  Text("age : "+pic.age.toString()),
-                  Divider(),
-                ],
-              ),
-            );
+                child: Row(
+              children: [
+                Column(
+                  children: [
+                    Text("id : " + pic.id.toString()),
+                    Text(pic.name),
+                    Text("age : " + pic.age.toString()),
+                    Divider(),
+                  ],
+                ),
+                IconButton(
+                  icon: new Icon(Icons.delete),
+                  onPressed: () {
+                    deleteId(pic.id);
+                    setState(() {
+                      _fetchData();
+                    });
+                  },
+                ),
+              ],
+            ));
           }),
     );
   }
