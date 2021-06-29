@@ -64,8 +64,10 @@ class _State extends State<SendForm> {
   Future sendData(inputValues) {
     var body = json.encode(inputValues);
     print(body);
-    return http.post(Uri.parse("	https://webhook.site/f31b331d-6f4a-4491-8897-976831f00575"),
-        headers: {"Content-Type": "application/json"}, body: body);
+    return http.post(
+        Uri.parse("https://webhook.site/f31b331d-6f4a-4491-8897-976831f00575"),
+        headers: {"Content-Type": "application/json"},
+        body: body);
   }
 
   @override
@@ -139,6 +141,14 @@ class _State extends State<SendForm> {
                         ),
                         validator: FormBuilderValidators.required(context,
                             errorText: '필수 입력')),
+                    Visibility(
+                      visible: false,
+                      maintainState: true,
+                      child: FormBuilderTextField(
+                        name: 'test',
+                        initialValue: "test",
+                      ),
+                    ),
                   ],
                 ),
               ),
