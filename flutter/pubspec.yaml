@@ -26,7 +26,8 @@ dependencies:
   carousel_slider:
   http:
   flutter_form_builder:
-
+  flutter_calendar_carousel: ^2.0.1
+  table_calendar:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

@@ -67,16 +67,12 @@ class _InfContentsState extends State<InfContents> {
     });
   }
 
-  Future deleteId(inputValues) {
+  void deleteId(inputValues) {
     var body = json.encode({"id":inputValues});
     http.post(
         Uri.parse("https://webhook.site/f31b331d-6f4a-4491-8897-976831f00575"),
         headers: {"Content-Type": "application/json"},
         body: body);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => InfContents()),
-    );
   }
 
   @override
@@ -112,7 +108,7 @@ class _InfContentsState extends State<InfContents> {
                   onPressed: () {
                     deleteId(pic.id);
                     setState(() {
-                      _fetchData();
+                      _data.remove(_data[index]);
                     });
                   },
                 ),
