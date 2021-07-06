@@ -1,6 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter/foundation.dart';
+
+/*
+//-> json 받아오기
+ List<Map<String,dynamic>> data =[
+    {"date":"2021-07-05 00:00:00.000Z","data":{"title":'asd', "id":1, "display":1}},
+    {"date":"2021-07-02 00:00:00.000Z","data":{"title":'qwe', "id":2, "display":1}},
+    {"date":"2021-06-28 00:00:00.000Z","data":{"title":'zxc', "id":1, "display":1}},
+  ];
+
+        */
 
 class Event {
   final String title;
@@ -10,6 +22,11 @@ class Event {
   Event({@required this.title, this.id, this.display});
 
   String toString() => this.title;
+
+  Event.formMap(Map<String, dynamic> map)
+      : title = map['title'],
+        id = map['id'],
+        display = map['display'];
 }
 
 class CalTest extends StatefulWidget {
@@ -18,12 +35,14 @@ class CalTest extends StatefulWidget {
 }
 
 class _CalendarState extends State<CalTest> {
-  Map<DateTime, List<Event>> selectedEvents;
+  Map<DateTime, List<Event>> selectedEvents={};
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
   TextEditingController _eventController = TextEditingController();
+
+  get http => null;
 
   @override
   void initState() {
@@ -38,6 +57,21 @@ class _CalendarState extends State<CalTest> {
     };
     super.initState();
   }
+  // Future _fetchEvent() async {
+  //   //데이터 받아오기
+  //   await http
+  //       .get(Uri.parse("http://18.216.47.35:3000/?page=1&limit=2"))
+  //       .then((res) {
+  //     if (res.statusCode == 200) {
+  //       String jsonString = res.body;
+  //       List data = jsonDecode(jsonString);
+  //       for (var i = 0; i < data.length; i++) {
+  //         Event a = Event.formMap(data[i]["data"]);
+  //         selectedEvents[DateTime.parse(data[i]["date"])] = [a];
+  //       }
+  //     }
+  //   });
+  // }
 
   List<Event> _getEventsfromDay(DateTime date) {
     return selectedEvents[date] ?? [];
@@ -137,6 +171,7 @@ class _CalendarState extends State<CalTest> {
                 markersAnchor: 2,
                 canMarkersOverflow: true,
                 isTodayHighlighted: true,
+                markersMaxCount: 1,
                 selectedDecoration: BoxDecoration(
                   shape: BoxShape.rectangle,
                   borderRadius: BorderRadius.circular(5.0),

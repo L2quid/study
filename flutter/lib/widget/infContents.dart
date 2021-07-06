@@ -29,13 +29,13 @@ class _InfContentsState extends State<InfContents> {
 
   @override
   void initState() {
-    super.initState();
     _fetchData();
     _Scroll.addListener(() {
       if (_Scroll.position.pixels == _Scroll.position.maxScrollExtent) {
         _fetchData();
       }
     });
+    super.initState();
   }
 
   void dispose() {
