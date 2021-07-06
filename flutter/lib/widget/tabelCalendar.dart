@@ -30,7 +30,7 @@ class _CalendarState extends State<CalTest> {
     selectedEvents = {
       DateTime.utc(2021, 7, 5): [
         Event(title: 'asdasd', id: 1, display: 1),
-        Event(title: 'dasd', id: 2, display: 2)
+        Event(title: 'dasd', id: 2, display: 0)
       ],
       DateTime.utc(2021, 7, 2): [Event(title: 'asd', id: 2, display: 1)],
       DateTime.utc(2021, 6, 28): [Event(title: 'asd', id: 1, display: 1)],
@@ -94,6 +94,38 @@ class _CalendarState extends State<CalTest> {
                     return Container();
                   }
                 },
+                defaultBuilder: (context, date, events) {
+                  if (date.weekday == 6) {
+                    return Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        alignment: Alignment.center,
+                        child: Text(
+                          date.day.toString(),
+                          style: TextStyle(color: Colors.blue),
+                        ));
+                  } else {
+                    return null;
+                  }
+                },
+                dowBuilder: (context,date){
+                  if (date.weekday==DateTime.saturday){
+                    return Center(
+                      child: Text(
+                        'Sat',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                    );
+                  }else if (date.weekday==DateTime.sunday){
+                    return Center(
+                      child: Text(
+                        'Sun',
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    );
+                  }{
+                    return null;
+                  }
+                },
               ),
 
               eventLoader: _getEventsfromDay,
@@ -103,7 +135,7 @@ class _CalendarState extends State<CalTest> {
                 outsideDaysVisible: false,
                 cellMargin: EdgeInsets.only(bottom: 10),
                 markersAnchor: 2,
-                canMarkersOverflow :true,
+                canMarkersOverflow: true,
                 isTodayHighlighted: true,
                 selectedDecoration: BoxDecoration(
                   shape: BoxShape.rectangle,
