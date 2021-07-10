@@ -8,7 +8,7 @@ class Bottom extends StatelessWidget {
     return Container(
       color: Colors.black,
       child: Container(
-        height: 60,
+        height: 80,
         child: TabBar(
           labelColor: Colors.white,
           unselectedLabelColor: Colors.white60,

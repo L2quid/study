@@ -11,22 +11,29 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  final int initIndex;
+
+  const MyApp({Key key, this.initIndex}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
   TabController controller;
+
   @override
   Widget build(BuildContext context) {
+    var initIndex = widget.initIndex;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Netflix',
       theme: ThemeData(
-        backgroundColor: Colors.black,
         fontFamily: "GmarketSans",
+        brightness: Brightness.dark,
       ),
       home: DefaultTabController(
+        initialIndex: initIndex ?? 0,
         length: 5,
         child: Scaffold(
           backgroundColor: Colors.black,

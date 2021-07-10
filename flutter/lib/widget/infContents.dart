@@ -44,7 +44,7 @@ class _InfContentsState extends State<InfContents> {
   }
 
   Future _fetchData() async {
-    int limit = 10;
+    int limit = 15;
     await http
         .get(Uri.parse("http://18.216.47.35:3000/?page=$page&limit=$limit"))
         .then((res) {
@@ -68,7 +68,7 @@ class _InfContentsState extends State<InfContents> {
   }
 
   void deleteId(inputValues) {
-    var body = json.encode({"id":inputValues});
+    var body = json.encode({"id": inputValues});
     http.post(
         Uri.parse("https://webhook.site/f31b331d-6f4a-4491-8897-976831f00575"),
         headers: {"Content-Type": "application/json"},
@@ -77,44 +77,40 @@ class _InfContentsState extends State<InfContents> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('test'),
-      ),
-      body: ListView.builder(
-          controller: _Scroll,
-          itemCount: _data.length + 1,
-          itemBuilder: (context, index) {
-            if (index == _data.length) {
-              return Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: Center(child: CircularProgressIndicator()),
-              );
-            }
-            Picture pic = _data[index];
-            return Container(
-                child: Row(
-              children: [
-                Column(
-                  children: [
-                    Text("id : " + pic.id.toString()),
-                    Text(pic.name),
-                    Text("age : " + pic.age.toString()),
-                    Divider(),
-                  ],
-                ),
-                IconButton(
-                  icon: new Icon(Icons.delete),
-                  onPressed: () {
-                    deleteId(pic.id);
-                    setState(() {
-                      _data.remove(_data[index]);
-                    });
-                  },
-                ),
-              ],
-            ));
-          }),
-    );
+    return ListView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        controller: _Scroll,
+        itemCount: _data.length + 1,
+        itemBuilder: (context, index) {
+          if (index == _data.length) {
+            return Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Center(child: CircularProgressIndicator()),
+            );
+          }
+          Picture pic = _data[index];
+          return Container(
+              child: Row(
+                children: [
+                  Column(
+                    children: [
+                      Text("id : " + pic.id.toString()),
+                      Text(pic.name),
+                      Text("age : " + pic.age.toString()),
+                      Divider(),
+                    ],
+                  ),
+                  IconButton(
+                    icon: new Icon(Icons.delete),
+                    onPressed: () {
+                      deleteId(pic.id);
+                      setState(() {
+                        _data.remove(_data[index]);
+                      });
+                    },
+                  ),
+                ],
+              ));
+        });
   }
 }
