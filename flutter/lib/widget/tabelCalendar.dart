@@ -35,12 +35,11 @@ class CalTest extends StatefulWidget {
 }
 
 class _CalendarState extends State<CalTest> {
-  Map<DateTime, List<Event>> selectedEvents={};
+  Map<DateTime, List<Event>> selectedEvents = {};
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
-  List<String> monthList =["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"];
-
+  List<String> dowList = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
   TextEditingController _eventController = TextEditingController();
 
   get http => null;
@@ -58,6 +57,7 @@ class _CalendarState extends State<CalTest> {
     };
     super.initState();
   }
+
   // Future _fetchEvent() async {
   //   //데이터 받아오기
   //   await http
@@ -86,177 +86,164 @@ class _CalendarState extends State<CalTest> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("CalendarTest"),
-        centerTitle: false,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(13.0),
+        color: Color(0xff2D2D2D),
       ),
-      body: Container(
-        child: Column(
-          children: [
-            TableCalendar(
-              focusedDay: selectedDay,
-              firstDay: DateTime(1990),
-              lastDay: DateTime(2050),
-              calendarFormat: format,
-              onFormatChanged: (CalendarFormat _format) {
-                setState(() {
-                  format = _format;
-                });
-              },
-              startingDayOfWeek: StartingDayOfWeek.sunday,
-              daysOfWeekVisible: true,
+      child: Column(
+        children: [
+          TableCalendar(
+            focusedDay: selectedDay,
+            firstDay: DateTime(1990),
+            lastDay: DateTime(2050),
+            calendarFormat: format,
+            onFormatChanged: (CalendarFormat _format) {
+              setState(() {
+                format = _format;
+              });
+            },
+            startingDayOfWeek: StartingDayOfWeek.sunday,
+            daysOfWeekVisible: true,
 
-              //Day Changed
-              onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                setState(() {
-                  selectedDay = selectDay;
-                  focusedDay = focusDay;
-                });
+            //Day Changed
+            onDaySelected: (DateTime selectDay, DateTime focusDay) {
+              setState(() {
+                selectedDay = selectDay;
+                focusedDay = focusDay;
+              });
+            },
+            selectedDayPredicate: (DateTime date) {
+              return isSameDay(selectedDay, date);
+            },
+            calendarBuilders: CalendarBuilders(
+              singleMarkerBuilder: (context, date, event) {
+                // 컬러 리스트 만든뒤 리팩토링
+                if (event.id == 1) {
+                  return Container(
+                    width: 5,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.lightBlueAccent,
+                    ),
+                  );
+                } else {
+                  return Container(
+                    width: 5,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.redAccent,
+                    ),
+                  );
+                }
               },
-              selectedDayPredicate: (DateTime date) {
-                return isSameDay(selectedDay, date);
+              dowBuilder: (context, date) {
+                return Center(
+                  child: Text(
+                    dowList[date.weekday - 1].toString(),
+                    style: TextStyle(
+                      color: Color(0xffABABAB),
+                      fontSize: 12,
+                    ),
+                  ),
+                );
               },
-              calendarBuilders: CalendarBuilders(
-                singleMarkerBuilder: (context, date, event) {
-                  if (event.display == 1) {
-                    return Image.asset(
-                      'assets/logo' + event.id.toString() + '.png',
-                      fit: BoxFit.cover,
-                      height: 20,
-                    );
-                  } else {
-                    return Container();
-                  }
-                },
-                defaultBuilder: (context, date, events) {
-                  if (date.weekday == 6) {
-                    return Container(
-                        margin: const EdgeInsets.only(bottom: 10),
-                        alignment: Alignment.center,
-                        child: Text(
-                          date.day.toString(),
-                          style: TextStyle(color: Colors.blue),
-                        ));
-                  } else {
-                    return null;
-                  }
-                },
-                dowBuilder: (context,date){
-                  if (date.weekday==DateTime.saturday){
-                    return Center(
-                      child: Text(
-                        'Sat',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                    );
-                  }else if (date.weekday==DateTime.sunday){
-                    return Center(
-                      child: Text(
-                        'Sun',
-                        style: TextStyle(color: Colors.red),
-                      ),
-                    );
-                  }{
-                    return null;
-                  }
-                },
+            ),
+
+            eventLoader: _getEventsfromDay,
+
+            //To style the Calendar
+            calendarStyle: CalendarStyle(
+              outsideDaysVisible: true,
+              outsideTextStyle: TextStyle(
+                  color: Color(0xaaABABAB),
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal),
+              outsideDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
               ),
-
-              eventLoader: _getEventsfromDay,
-
-              //To style the Calendar
-              calendarStyle: CalendarStyle(
-                outsideDaysVisible: false,
-                cellMargin: EdgeInsets.only(bottom: 10),
-                markersAnchor: 2,
-                canMarkersOverflow: true,
-                isTodayHighlighted: true,
-                markersMaxCount: 1,
-                selectedDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                selectedTextStyle: TextStyle(color: Colors.black),
-                todayTextStyle: TextStyle(color: Colors.black),
-                todayDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                defaultDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                holidayTextStyle: TextStyle(color: Colors.blue),
-                weekendTextStyle: TextStyle(color: Colors.red),
-                weekendDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
+              markersAlignment: Alignment(0.5, 0),
+              markersAnchor: 4.2,
+              canMarkersOverflow: true,
+              isTodayHighlighted: true,
+              markersMaxCount: 1,
+              selectedDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
               ),
-              headerStyle: HeaderStyle(
-                headerPadding: EdgeInsets.all(20),
-                leftChevronVisible: false,
-                rightChevronVisible: false,
-                formatButtonVisible: false,
-                titleCentered: false,
-                formatButtonShowsNext: false,
-                titleTextFormatter: (date, locale) => monthList[date.month-1].toString(),
-                formatButtonTextStyle: TextStyle(
+              selectedTextStyle: TextStyle(
                   color: Colors.white,
-                ),
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal),
+              todayTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal),
+              todayDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              defaultDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              holidayTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal),
+              weekendTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal),
+              defaultTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 17,
+                  fontWeight: FontWeight.normal),
+              weekendDecoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                borderRadius: BorderRadius.circular(5.0),
               ),
             ),
-            ..._getEventsfromDay(selectedDay).map(
-              (Event event) => ListTile(
-                title: Text(
-                  event.title,
-                ),
+            headerStyle: HeaderStyle(
+              leftChevronIcon: Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 24,
               ),
+              leftChevronVisible: true,
+              leftChevronMargin: EdgeInsets.only(left: 10),
+              leftChevronPadding: EdgeInsets.all(0),
+              rightChevronPadding: EdgeInsets.only(right: 0),
+              rightChevronIcon: Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+                size: 24,
+              ),
+              rightChevronVisible: true,
+              formatButtonVisible: false,
+              titleCentered: false,
+              formatButtonShowsNext: false,
+              headerMargin: EdgeInsets.fromLTRB(14,14,14,0),
+              titleTextStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: Text("Add Event"),
-            content: TextFormField(
-              controller: _eventController,
-            ),
-            actions: [
-              TextButton(
-                child: Text("Cancel"),
-                onPressed: () => Navigator.pop(context),
-              ),
-              TextButton(
-                child: Text("Ok"),
-                onPressed: () {
-                  print(selectedEvents);
-                  if (_eventController.text.isEmpty) {
-                  } else {
-                    if (selectedEvents[selectedDay] != null) {
-                      selectedEvents[selectedDay].add(
-                        Event(title: _eventController.text),
-                      );
-                    } else {
-                      selectedEvents[selectedDay] = [
-                        Event(title: _eventController.text)
-                      ];
-                    }
-                  }
-                  Navigator.pop(context);
-                  _eventController.clear();
-                  setState(() {});
-                  return;
-                },
-              ),
-            ],
+            daysOfWeekHeight: 38,
           ),
-        ),
-        label: Text("Add Event"),
-        icon: Icon(Icons.add),
+          /*
+          ..._getEventsfromDay(selectedDay).map(
+            (Event event) => ListTile(
+              title: Text(
+                event.title,
+              ),
+            ),
+          ),
+          */
+        ],
       ),
     );
   }

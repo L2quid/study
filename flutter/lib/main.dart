@@ -23,13 +23,13 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Netflix',
       theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.white,
-        accentColor: Colors.orangeAccent[100],
+        backgroundColor: Colors.black,
+        fontFamily: "GmarketSans",
       ),
       home: DefaultTabController(
         length: 5,
         child: Scaffold(
+          backgroundColor: Colors.black,
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: [
