@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sample_test/widget/main_postDiary.dart';
 import 'package:sample_test/widget/tabelCalendar.dart';
 
 class CalendarTest extends StatelessWidget {
@@ -15,7 +16,7 @@ class CalendarTest extends StatelessWidget {
           padding: const EdgeInsets.all(14.0),
           child: CalTest(),
         ),
-        CalTest()
+        postDiary()
       ],
     ));
   }
