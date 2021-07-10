@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:sample_test/widget/rec_card.dart';
+import 'package:sample_test/widget/recommend_header.dart';
+import 'package:sample_test/widget/tabelCalendar.dart';
 import 'dart:convert';
+
+import 'main_postDiary.dart';
 
 class InfContents extends StatefulWidget {
   @override
@@ -31,7 +36,7 @@ class _InfContentsState extends State<InfContents> {
   void initState() {
     _fetchData();
     _Scroll.addListener(() {
-      if (_Scroll.position.pixels == _Scroll.position.maxScrollExtent) {
+      if (_Scroll.position.pixels >= _Scroll.position.maxScrollExtent) {
         _fetchData();
       }
     });
@@ -78,39 +83,50 @@ class _InfContentsState extends State<InfContents> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        physics: NeverScrollableScrollPhysics(),
         controller: _Scroll,
         itemCount: _data.length + 1,
         itemBuilder: (context, index) {
+          if (index == 0) {
+            return SingleChildScrollView(
+                child: Column(
+              children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(14.0),
+                  child: CalTest(),
+                ),
+                postDiary(),
+                RecommendHeader(),
+              ],
+            ));
+          }
           if (index == _data.length) {
             return Padding(
               padding: const EdgeInsets.all(12.0),
               child: Center(child: CircularProgressIndicator()),
+              //로딩 아이콘 의뢰?
             );
           }
           Picture pic = _data[index];
-          return Container(
-              child: Row(
-                children: [
-                  Column(
-                    children: [
-                      Text("id : " + pic.id.toString()),
-                      Text(pic.name),
-                      Text("age : " + pic.age.toString()),
-                      Divider(),
-                    ],
-                  ),
-                  IconButton(
-                    icon: new Icon(Icons.delete),
-                    onPressed: () {
-                      deleteId(pic.id);
-                      setState(() {
-                        _data.remove(_data[index]);
-                      });
-                    },
-                  ),
-                ],
-              ));
+          return Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16),
+            child: Column(
+              children: [
+                Container(
+                    decoration: BoxDecoration(
+                      color: Color(0xff3d3d3d),
+                    ),
+                    child: RecommendCard(data:pic),// 추천 카드
+                ),
+                Container(
+                  height: 15,
+                  decoration: BoxDecoration(color: Color(0xff2d2d2d)),
+                )
+              ],
+            ),
+          );
         });
   }
 }

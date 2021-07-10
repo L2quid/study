@@ -17,7 +17,6 @@ class CalendarTest extends StatelessWidget {
           padding: const EdgeInsets.all(14.0),
           child: CalTest(),
         ),
-        postDiary(),
       ],
     ));
   }

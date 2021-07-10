@@ -11,7 +11,7 @@ class postDiary extends StatelessWidget {
         width: 360,
         height: 150,
         padding: EdgeInsets.all(10),
-        margin: EdgeInsets.only(top: 10),
+        margin: EdgeInsets.only(top: 3),
         decoration: BoxDecoration(
             color: Color(0xff2D2D2D), borderRadius: BorderRadius.circular(13)),
         child: Row(
