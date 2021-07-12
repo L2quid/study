@@ -40,15 +40,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: <Widget>[
-        Stack(
-          children: <Widget>[
-            CarouselImage(movies: movies),
-            TopBar(),
-          ],
-        )
-      ],
+    return Scaffold(
+      body: ListView(
+        children: <Widget>[
+          Stack(
+            children: <Widget>[
+              CarouselImage(movies: movies),
+              TopBar(),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

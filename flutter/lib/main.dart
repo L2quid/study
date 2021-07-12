@@ -5,26 +5,23 @@ import 'package:sample_test/screen/calendar.dart';
 import 'package:sample_test/screen/home_screen.dart';
 import 'package:sample_test/screen/infinity_scroll.dart';
 import 'package:sample_test/widget/bottom_bar.dart';
+import 'package:sample_test/widget/scafoldTest.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  final int initIndex;
-
-  const MyApp({Key key, this.initIndex}) : super(key: key);
+  const MyApp({Key key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
-  TabController controller;
 
   @override
   Widget build(BuildContext context) {
-    var initIndex = widget.initIndex;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Netflix',
@@ -32,40 +29,63 @@ class _MyAppState extends State<MyApp> {
         fontFamily: "GmarketSans",
         brightness: Brightness.dark,
       ),
-      home: DefaultTabController(
-        initialIndex: initIndex ?? 0,
-        length: 5,
-        child: Scaffold(
-          backgroundColor: Colors.black,
-          body: TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            children: [
-              HomeScreen(),
-              InfinityScroll(),
-              SendForm(),
-              CalendarTest(),
-              Container(),
-            ],
-          ),
-          bottomNavigationBar: Bottom(),
-        ),
-      ),
+      home: CupertinoStoreHomePage(),
     );
   }
 }
 
-class MyApp2 extends StatefulWidget {
-  const MyApp2({Key key}) : super(key: key);
-
-  @override
-  _MyApp2State createState() => _MyApp2State();
-}
-
-class _MyApp2State extends State<MyApp2> {
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
-
+class CupertinoStoreHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
+        border: Border.all(width: 49),
+        iconSize: 25,
+        activeColor: Colors.white,
+        backgroundColor: Colors.black,
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Products'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            title: Text('Search'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            title: Text('Cart'),
+          ),
+        ],
+      ),
+      tabBuilder: (context, index) {
+        switch (index) {
+          case 0:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: Page1(),
+              );
+            });
+          case 1:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: InfinityScroll(),
+              );
+            });
+          case 2:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: HomeScreen(),
+              );
+            });
+          default: return CupertinoTabView(builder: (context) {
+            return CupertinoPageScaffold(
+              child: Page1(),
+            );
+          });
+        }
+      },
+    );
   }
 }
+
