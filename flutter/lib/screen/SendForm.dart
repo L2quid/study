@@ -36,7 +36,8 @@ class _State extends State<SendForm> {
     sendData(inputValues);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MyApp(initIndex: 0,)),
+      //MaterialPageRoute(builder: (context) => MyApp(initIndex: 0,)),
+      MaterialPageRoute(builder: (context) => MyApp()),
     );
   }
 

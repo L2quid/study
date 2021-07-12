@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sample_test/widget/RecCard/RecCardContent.dart';
+import 'package:sample_test/widget/RecCard/rec_card_footer.dart';
+import 'package:sample_test/widget/RecCard/rec_card_header.dart';
 
 class RecommendCard extends StatelessWidget {
   // data.id, data.name, data.age
@@ -9,12 +12,18 @@ class RecommendCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 360,
-      height: 300,
+      height: 294,
       decoration: BoxDecoration(
         color: Color(0xff3d3d3d),
       ),
       // 카드 제작
-      child: Text('${data.id}, ${data.name}, ${data.age}'),
+      child: Column(
+        children: [
+          RecCardHeader(data: data,),
+          RecCardContent(data: data,),
+          RecCardFooter(data: data,),
+        ],
+      ),
     );
   }
 }
