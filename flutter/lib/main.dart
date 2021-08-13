@@ -19,7 +19,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -75,17 +74,17 @@ class CupertinoStoreHomePage extends StatelessWidget {
           case 2:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
-                child: HomeScreen(),
+                child: SendForm(),
               );
             });
-          default: return CupertinoTabView(builder: (context) {
-            return CupertinoPageScaffold(
-              child: Page1(),
-            );
-          });
+          default:
+            return CupertinoTabView(builder: (context) {
+              return CupertinoPageScaffold(
+                child: Page1(),
+              );
+            });
         }
       },
     );
   }
 }
-

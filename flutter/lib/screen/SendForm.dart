@@ -32,14 +32,15 @@ class _State extends State<SendForm> {
       return;
     }
     _fbkey.currentState.save();
-    final inputValues = _fbkey.currentState.value;
-    sendData(inputValues);
-    Navigator.push(
-      context,
-      //MaterialPageRoute(builder: (context) => MyApp(initIndex: 0,)),
-      MaterialPageRoute(builder: (context) => MyApp()),
-    );
-
+    var inputValues = _fbkey.currentState.value;
+    final newbody = {...inputValues, 'imageOne': 'downloadLink'};
+    print(newbody);
+    sendData(newbody);
+    // Navigator.push(
+    //   context,
+    //   //MaterialPageRoute(builder: (context) => MyApp(initIndex: 0,)),
+    //   MaterialPageRoute(builder: (context) => MyApp()),
+    //);
   }
 
   Future getUsers() async {
@@ -65,10 +66,10 @@ class _State extends State<SendForm> {
   Future sendData(inputValues) {
     var body = json.encode(inputValues);
     print(body);
-    return http.post(
-        Uri.parse("https://webhook.site/f31b331d-6f4a-4491-8897-976831f00575"),
-        headers: {"Content-Type": "application/json"},
-        body: body);
+    // return http.post(
+    //     Uri.parse("https://webhook.site/f31b331d-6f4a-4491-8897-976831f00575"),
+    //     headers: {"Content-Type": "application/json"},
+    //     body: body);
   }
 
   @override
@@ -92,23 +93,23 @@ class _State extends State<SendForm> {
                 key: _fbkey,
                 child: Column(
                   children: [
-                    FormBuilderDropdown(
-                      name: 'user',
-                      hint: Text('선택'),
-                      items: _data
-                          .map((e) => DropdownMenuItem(
-                                value: e.id,
-                                child: Text(e.name),
-                              ))
-                          .toList(),
-                      decoration: InputDecoration(
-                        filled: true,
-                        labelText: '사용자',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: FormBuilderValidators.required(context,
-                          errorText: '필수선택'),
-                    ),
+                    // FormBuilderDropdown(
+                    //   name: 'user',
+                    //   hint: Text('선택'),
+                    //   items: _data
+                    //       .map((e) => DropdownMenuItem(
+                    //             value: e.id,
+                    //             child: Text(e.name),
+                    //           ))
+                    //       .toList(),
+                    //   decoration: InputDecoration(
+                    //     filled: true,
+                    //     labelText: '사용자',
+                    //     border: OutlineInputBorder(),
+                    //   ),
+                    //   validator: FormBuilderValidators.required(context,
+                    //       errorText: '필수선택'),
+                    // ),
                     SizedBox(
                       height: 20,
                     ),
