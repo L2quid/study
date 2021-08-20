@@ -4,6 +4,7 @@ import 'package:sample_test/screen/SendForm.dart';
 import 'package:sample_test/screen/calendar.dart';
 import 'package:sample_test/screen/home_screen.dart';
 import 'package:sample_test/screen/infinity_scroll.dart';
+import 'package:sample_test/screen/smart_refresh.dart';
 import 'package:sample_test/widget/bottom_bar.dart';
 import 'package:sample_test/widget/scafoldTest.dart';
 
@@ -80,7 +81,8 @@ class CupertinoStoreHomePage extends StatelessWidget {
           default:
             return CupertinoTabView(builder: (context) {
               return CupertinoPageScaffold(
-                child: Page1(),
+                child: //SmartRefresher(),
+                    Container(),
               );
             });
         }
